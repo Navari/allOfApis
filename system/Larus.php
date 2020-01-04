@@ -1,9 +1,7 @@
 <?php
 namespace Yilmaz;
-
 class Larus
 {
-
     public function getApi($api,$queryString){
         if(is_callable([$this,$api])){
             return call_user_func([$this,$api],$queryString);
