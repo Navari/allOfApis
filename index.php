@@ -1,6 +1,4 @@
 <?php
-ob_start();
-require 'system/simple_html_dom.php';
 require 'system/Cache.php';
 require 'system/Larus.php';
 ini_set('memory_limit','1024MB');
@@ -17,6 +15,7 @@ if(count($requestedURL) > 2){
     if(!isset($api)){
         echo $init->json(303,['message' => 'Erişmek istediğiniz URL Bulunamadı','availMethods' => 'weather - namaz - doviz - yakit']);
     }else {
+        /**
         $cache = new Cache([
             'time'   => 600,
             'dir'    => '../cache/'.$api,
@@ -24,6 +23,7 @@ if(count($requestedURL) > 2){
             'load'   => false,
             'extension' => '.json'
         ]);
+         * **/
         $queryString = @$requestedURL[1];
         echo $init->getApi($api, $queryString);
     }

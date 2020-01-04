@@ -21,7 +21,17 @@ class Larus
         $getUrl = file_get_contents($url);
         return $this->json(200,json_decode($getUrl));
     }
-
+    public function ip($parameter){
+        if(isset($parameter)){
+            $url = "http://ip-api.com/json/".$parameter."?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query";
+            $getUrl = file_get_contents($url);
+            return $this->json(200, ['data' => json_decode($getUrl)]);
+        }else{
+            $url = "http://ip-api.com/json/".$_SERVER['REMOTE_ADDR']."?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query";
+            $getUrl = file_get_contents($url);
+            return $this->json(200,['data',json_decode($getUrl)]);
+        }
+    }
     public function doviz($parameter = NULL){
         if(isset($parameter)){
             $url = "https://www.tcmb.gov.tr/kurlar/today.xml";
@@ -81,7 +91,24 @@ class Larus
             return $this->json(303,'Lütfen il plaka kodu gönderiniz');
         }
     }
-
+    public function sehirler($parameter){
+        if(isset($parameter)){
+            $url = 'http://'.$_SERVER["SERVER_NAME"].'/api/getJson/belediyeler.min.json';
+            $getUrl = file_get_contents($url);
+            print_r(json_decode($getUrl));
+        }else{
+            $url = 'http://'.$_SERVER["SERVER_NAME"].'/api/getJson/belediyeler.min.json';
+            $getUrl = file_get_contents($url);
+            return $this->json(200,$getUrl);
+        }
+    }
+    public function getJson($url){
+        header_remove();
+        http_response_code(200);
+        header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
+        header('Content-Type: application/json');
+        return file_get_contents('jsons/'.$url);
+    }
     public function json($statusCode, $message){
         header_remove();
         http_response_code($statusCode);
