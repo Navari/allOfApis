@@ -13,9 +13,8 @@ if(count($requestedURL) > 2){
 } else {
     $api = @$requestedURL[0];
     if(!isset($api)){
-        echo $init->json(303,['message' => 'Erişmek istediğiniz URL Bulunamadı','availMethods' => 'weather - namaz - doviz - yakit']);
+        echo $init->json(303,['message' => 'Erişmek istediğiniz URL Bulunamadı','availMethods' => 'weather - namaz - doviz - yakit - ip']);
     }else {
-        /**
         $cache = new Cache([
             'time'   => 600,
             'dir'    => '../cache/'.$api,
@@ -23,7 +22,6 @@ if(count($requestedURL) > 2){
             'load'   => false,
             'extension' => '.json'
         ]);
-         * **/
         $queryString = @$requestedURL[1];
         echo $init->getApi($api, $queryString);
     }

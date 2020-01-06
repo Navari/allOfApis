@@ -91,23 +91,8 @@ class Larus
             return $this->json(303,'Lütfen il plaka kodu gönderiniz');
         }
     }
-    public function sehirler($parameter){
-        if(isset($parameter)){
-            $url = 'http://'.$_SERVER["SERVER_NAME"].'/api/getJson/belediyeler.min.json';
-            $getUrl = file_get_contents($url);
-            print_r(json_decode($getUrl));
-        }else{
-            $url = 'http://'.$_SERVER["SERVER_NAME"].'/api/getJson/belediyeler.min.json';
-            $getUrl = file_get_contents($url);
-            return $this->json(200,$getUrl);
-        }
-    }
-    public function getJson($url){
-        header_remove();
-        http_response_code(200);
-        header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
-        header('Content-Type: application/json');
-        return file_get_contents('jsons/'.$url);
+    public function sondakika($parameter){
+
     }
     public function json($statusCode, $message){
         header_remove();
